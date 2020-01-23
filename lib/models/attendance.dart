@@ -1,29 +1,39 @@
-import 'package:attendance_portal/models/sections.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mobx/mobx.dart';
 
 part 'attendance.g.dart';
 
-abstract class Attendance implements Built<Attendance, AttendanceBuilder> {
+@JsonSerializable()
+class Attendance extends _Attendance with _$Attendance {
+  static Attendance fromJson(Map<String, dynamic> json) =>
+      _$AttendanceFromJson(json);
 
-  String get name;
-
-  String get id;
-
-  Section get section;
-
-  String get subSection;
-
-  String get totalStudents;
-
-  String get presentStudents;
-
-  Attendance._();
-
-  factory Attendance() {
-    return _$Attendance((b) {});
-  }
-
-  static Serializer<Attendance> get serializer => _$attendanceSerializer;
+  static Map<String, dynamic> toJson(Attendance Attendance) =>
+      _$AttendanceToJson(Attendance);
 }
+
+abstract class _Attendance with Store {
+  @observable
+  String name;
+
+  @observable
+  int id;
+
+  @observable
+  Section section;
+
+  @observable
+  SubSection subSection;
+
+  @observable
+  @JsonKey(name: 'total_students')
+  int totalStudents;
+
+  @observable
+  @JsonKey(name: 'present_students')
+  int presentStudents;
+}
+
+enum Section { CS, IT }
+
+enum SubSection { CS1, CS2, CS3, IT1, IT2 }

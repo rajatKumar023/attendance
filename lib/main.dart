@@ -1,5 +1,4 @@
-import 'package:attendance_portal/home_page.dart';
-import 'package:attendance_portal/sign_up_page.dart';
+import 'package:attendance_portal/presentations/name_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -12,7 +11,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: PageView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          return EnterNamePage();
+        },
+      ),
     );
   }
 }

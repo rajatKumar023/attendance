@@ -3,241 +3,180 @@
 part of 'attendance.dart';
 
 // **************************************************************************
-// BuiltValueGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-Serializer<Attendance> _$attendanceSerializer = new _$AttendanceSerializer();
-
-class _$AttendanceSerializer implements StructuredSerializer<Attendance> {
-  @override
-  final Iterable<Type> types = const [Attendance, _$Attendance];
-  @override
-  final String wireName = 'Attendance';
-
-  @override
-  Iterable<Object> serialize(Serializers serializers, Attendance object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'section',
-      serializers.serialize(object.section,
-          specifiedType: const FullType(Section)),
-      'subSection',
-      serializers.serialize(object.subSection,
-          specifiedType: const FullType(String)),
-      'totalStudents',
-      serializers.serialize(object.totalStudents,
-          specifiedType: const FullType(String)),
-      'presentStudents',
-      serializers.serialize(object.presentStudents,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  Attendance deserialize(Serializers serializers, Iterable<Object> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new AttendanceBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current as String;
-      iterator.moveNext();
-      final dynamic value = iterator.current;
-      switch (key) {
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'section':
-          result.section = serializers.deserialize(value,
-              specifiedType: const FullType(Section)) as Section;
-          break;
-        case 'subSection':
-          result.subSection = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'totalStudents':
-          result.totalStudents = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'presentStudents':
-          result.presentStudents = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
+Attendance _$AttendanceFromJson(Map<String, dynamic> json) {
+  return Attendance()
+    ..name = json['name'] as String
+    ..id = json['id'] as int
+    ..section = _$enumDecodeNullable(_$SectionEnumMap, json['section'])
+    ..subSection = _$enumDecodeNullable(_$SubSectionEnumMap, json['subSection'])
+    ..totalStudents = json['total_students'] as int
+    ..presentStudents = json['present_students'] as int;
 }
 
-class _$Attendance extends Attendance {
-  @override
-  final String name;
-  @override
-  final String id;
-  @override
-  final Section section;
-  @override
-  final String subSection;
-  @override
-  final String totalStudents;
-  @override
-  final String presentStudents;
+Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'id': instance.id,
+      'section': _$SectionEnumMap[instance.section],
+      'subSection': _$SubSectionEnumMap[instance.subSection],
+      'total_students': instance.totalStudents,
+      'present_students': instance.presentStudents,
+    };
 
-  factory _$Attendance([void Function(AttendanceBuilder) updates]) =>
-      (new AttendanceBuilder()..update(updates)).build();
-
-  _$Attendance._(
-      {this.name,
-      this.id,
-      this.section,
-      this.subSection,
-      this.totalStudents,
-      this.presentStudents})
-      : super._() {
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Attendance', 'name');
-    }
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Attendance', 'id');
-    }
-    if (section == null) {
-      throw new BuiltValueNullFieldError('Attendance', 'section');
-    }
-    if (subSection == null) {
-      throw new BuiltValueNullFieldError('Attendance', 'subSection');
-    }
-    if (totalStudents == null) {
-      throw new BuiltValueNullFieldError('Attendance', 'totalStudents');
-    }
-    if (presentStudents == null) {
-      throw new BuiltValueNullFieldError('Attendance', 'presentStudents');
-    }
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
   }
 
-  @override
-  Attendance rebuild(void Function(AttendanceBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
 
-  @override
-  AttendanceBuilder toBuilder() => new AttendanceBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is Attendance &&
-        name == other.name &&
-        id == other.id &&
-        section == other.section &&
-        subSection == other.subSection &&
-        totalStudents == other.totalStudents &&
-        presentStudents == other.presentStudents;
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
   }
-
-  @override
-  int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc($jc($jc($jc(0, name.hashCode), id.hashCode), section.hashCode),
-                subSection.hashCode),
-            totalStudents.hashCode),
-        presentStudents.hashCode));
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper('Attendance')
-          ..add('name', name)
-          ..add('id', id)
-          ..add('section', section)
-          ..add('subSection', subSection)
-          ..add('totalStudents', totalStudents)
-          ..add('presentStudents', presentStudents))
-        .toString();
-  }
+  return value ?? unknownValue;
 }
 
-class AttendanceBuilder implements Builder<Attendance, AttendanceBuilder> {
-  _$Attendance _$v;
-
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
-
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
-
-  Section _section;
-  Section get section => _$this._section;
-  set section(Section section) => _$this._section = section;
-
-  String _subSection;
-  String get subSection => _$this._subSection;
-  set subSection(String subSection) => _$this._subSection = subSection;
-
-  String _totalStudents;
-  String get totalStudents => _$this._totalStudents;
-  set totalStudents(String totalStudents) =>
-      _$this._totalStudents = totalStudents;
-
-  String _presentStudents;
-  String get presentStudents => _$this._presentStudents;
-  set presentStudents(String presentStudents) =>
-      _$this._presentStudents = presentStudents;
-
-  AttendanceBuilder();
-
-  AttendanceBuilder get _$this {
-    if (_$v != null) {
-      _name = _$v.name;
-      _id = _$v.id;
-      _section = _$v.section;
-      _subSection = _$v.subSection;
-      _totalStudents = _$v.totalStudents;
-      _presentStudents = _$v.presentStudents;
-      _$v = null;
-    }
-    return this;
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
   }
-
-  @override
-  void replace(Attendance other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
-    _$v = other as _$Attendance;
-  }
-
-  @override
-  void update(void Function(AttendanceBuilder) updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  _$Attendance build() {
-    final _$result = _$v ??
-        new _$Attendance._(
-            name: name,
-            id: id,
-            section: section,
-            subSection: subSection,
-            totalStudents: totalStudents,
-            presentStudents: presentStudents);
-    replace(_$result);
-    return _$result;
-  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+const _$SectionEnumMap = {
+  Section.CS: 'CS',
+  Section.IT: 'IT',
+};
+
+const _$SubSectionEnumMap = {
+  SubSection.CS1: 'CS1',
+  SubSection.CS2: 'CS2',
+  SubSection.CS3: 'CS3',
+  SubSection.IT1: 'IT1',
+  SubSection.IT2: 'IT2',
+};
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars
+
+mixin _$Attendance on _Attendance, Store {
+  final _$nameAtom = Atom(name: '_Attendance.name');
+
+  @override
+  String get name {
+    _$nameAtom.context.enforceReadPolicy(_$nameAtom);
+    _$nameAtom.reportObserved();
+    return super.name;
+  }
+
+  @override
+  set name(String value) {
+    _$nameAtom.context.conditionallyRunInAction(() {
+      super.name = value;
+      _$nameAtom.reportChanged();
+    }, _$nameAtom, name: '${_$nameAtom.name}_set');
+  }
+
+  final _$idAtom = Atom(name: '_Attendance.id');
+
+  @override
+  int get id {
+    _$idAtom.context.enforceReadPolicy(_$idAtom);
+    _$idAtom.reportObserved();
+    return super.id;
+  }
+
+  @override
+  set id(int value) {
+    _$idAtom.context.conditionallyRunInAction(() {
+      super.id = value;
+      _$idAtom.reportChanged();
+    }, _$idAtom, name: '${_$idAtom.name}_set');
+  }
+
+  final _$sectionAtom = Atom(name: '_Attendance.section');
+
+  @override
+  Section get section {
+    _$sectionAtom.context.enforceReadPolicy(_$sectionAtom);
+    _$sectionAtom.reportObserved();
+    return super.section;
+  }
+
+  @override
+  set section(Section value) {
+    _$sectionAtom.context.conditionallyRunInAction(() {
+      super.section = value;
+      _$sectionAtom.reportChanged();
+    }, _$sectionAtom, name: '${_$sectionAtom.name}_set');
+  }
+
+  final _$subSectionAtom = Atom(name: '_Attendance.subSection');
+
+  @override
+  SubSection get subSection {
+    _$subSectionAtom.context.enforceReadPolicy(_$subSectionAtom);
+    _$subSectionAtom.reportObserved();
+    return super.subSection;
+  }
+
+  @override
+  set subSection(SubSection value) {
+    _$subSectionAtom.context.conditionallyRunInAction(() {
+      super.subSection = value;
+      _$subSectionAtom.reportChanged();
+    }, _$subSectionAtom, name: '${_$subSectionAtom.name}_set');
+  }
+
+  final _$totalStudentsAtom = Atom(name: '_Attendance.totalStudents');
+
+  @override
+  int get totalStudents {
+    _$totalStudentsAtom.context.enforceReadPolicy(_$totalStudentsAtom);
+    _$totalStudentsAtom.reportObserved();
+    return super.totalStudents;
+  }
+
+  @override
+  set totalStudents(int value) {
+    _$totalStudentsAtom.context.conditionallyRunInAction(() {
+      super.totalStudents = value;
+      _$totalStudentsAtom.reportChanged();
+    }, _$totalStudentsAtom, name: '${_$totalStudentsAtom.name}_set');
+  }
+
+  final _$presentStudentsAtom = Atom(name: '_Attendance.presentStudents');
+
+  @override
+  int get presentStudents {
+    _$presentStudentsAtom.context.enforceReadPolicy(_$presentStudentsAtom);
+    _$presentStudentsAtom.reportObserved();
+    return super.presentStudents;
+  }
+
+  @override
+  set presentStudents(int value) {
+    _$presentStudentsAtom.context.conditionallyRunInAction(() {
+      super.presentStudents = value;
+      _$presentStudentsAtom.reportChanged();
+    }, _$presentStudentsAtom, name: '${_$presentStudentsAtom.name}_set');
+  }
+}

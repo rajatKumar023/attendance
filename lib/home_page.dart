@@ -1,7 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'models/sections.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -103,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                                     (Section g) => DropdownMenuItem(
                                       value: g,
                                       child: Text(
-                                        Section.displayValue(g),
+                                        describeEnum(g),
                                         style: TextStyle(
                                           fontSize: 18,
                                           color: Theme.of(context).primaryColor,
@@ -291,3 +290,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+enum Section { CS, IT }
