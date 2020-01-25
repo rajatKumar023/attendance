@@ -1,4 +1,4 @@
-import 'package:attendance_portal/presentations/name_page.dart';
+import 'package:attendance_portal/presentations/home.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
-          return EnterNamePage();
+          return MainPage();
         },
       ),
     );

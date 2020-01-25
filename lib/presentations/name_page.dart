@@ -20,78 +20,100 @@ class _EnterNamePageState extends State<EnterNamePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.deepPurple,
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 15.0),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Hi There,',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                          Colors.deepPurple.withOpacity(0.3),
+                          BlendMode.modulate),
+                      child: Image.asset(
+                        'assets/paper_bg.png',
+                        fit: BoxFit.fitWidth,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Hi there,',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Please enter your name to continue',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40.0,
+                            ),
+                            Form(
+                              onChanged: () => _formKey.currentState.validate(),
+                              key: _formKey,
+                              autovalidate: false,
+                              child: TextFormField(
+                                controller: textEditingController,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Name cannot be Empty';
+                                  }
+                                  if (value.length < 3) {
+                                    return 'Name should be greater than 2 characters';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.yellow),
+                                  ),
+                                  errorStyle: TextStyle(color: Colors.yellow),
+                                ),
+                                style: TextStyle(color: Colors.white),
+                                cursorColor: Colors.white,
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      Text(
-                        'Please enter your name to continue',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Form(
-                        onChanged: () => _formKey.currentState.validate(),
-                        key: _formKey,
-                        autovalidate: false,
-                        child: TextFormField(
-                          controller: textEditingController,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Name cannot be Empty';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.yellow),
-                            ),
-                            errorStyle: TextStyle(color: Colors.yellow),
-                          ),
-                          style: TextStyle(color: Colors.white),
-                          cursorColor: Colors.white,
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 60.0,
+                    ),
+                  ],
                 ),
               ),
               Positioned(
