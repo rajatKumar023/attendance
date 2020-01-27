@@ -11,85 +11,150 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Attendance'),
-        ),
+        backgroundColor: Colors.deepPurple,
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: getCard(
-                        color: Colors.purple,
-                        cardColor: Colors.deepPurple,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EnterNamePage()));
-                        }),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 40.0,
+                ),
+                Text(
+                  'Attendance Management',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(
-                    width: 20.0,
+                ),
+                SizedBox(
+                  height: 40.0,
+                ),
+                getCard(
+                  cardColor: Colors.deepOrangeAccent,
+                  title: 'Record Attendance',
+                  prefixIcon: Image.asset(
+                    'assets/paper_bg.png',
+                    fit: BoxFit.fill,
                   ),
-                  Expanded(
-                    child: getCard(
-                      color: Colors.red,
-                      cardColor: Colors.yellow,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EnterNamePage()));
+                  },
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                getCard(
+                  title: 'Calculate Average',
+                  cardColor: Colors.blue,
+                  prefixIcon: Image.asset(
+                    'assets/calculator.png',
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                getCard(
+                  title: 'Know More',
+                  cardColor: Colors.red,
+                  prefixIcon: Center(
+                    child: Icon(
+                      Icons.help_outline,
+                      color: Colors.black54,
+                      size: 45,
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: getCard(
-                      color: Colors.green,
-                      cardColor: Colors.orange,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                getCard(
+                  cardColor: Colors.lightGreen,
+                  title: 'Settings',
+                  prefixIcon: Center(
+                    child: Icon(
+                      Icons.settings,
+                      color: Colors.black54,
+                      size: 45,
                     ),
                   ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Expanded(
-                    child: getCard(
-                      color: Colors.deepOrangeAccent,
-                      cardColor: Colors.deepPurpleAccent,
-                    ),
-                  ),
-                ],
-              )
-            ],
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget getCard({Color cardColor, Color color, Function onTap}) {
+  Widget getCard({
+    Color cardColor,
+    Function onTap,
+    String title = 'Lorem Ipsum',
+    Widget prefixIcon,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
         margin: EdgeInsets.all(0),
-        elevation: 18,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
         child: Container(
-          height: 180.0,
+          height: 150.0,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [cardColor, color], begin: Alignment.topLeft),
+            color: cardColor,
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
-          child: Center(
-            child: Column(
-              children: <Widget>[],
-            ),
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                flex: 4,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20.0),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.0),
+                      ),
+                    ),
+                    child: prefixIcon,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                flex: 7,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),
