@@ -1,3 +1,4 @@
+import 'package:attendance_portal/presentations/name_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -10,7 +11,9 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text('Attendance'),
+        ),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -22,9 +25,14 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   Expanded(
                     child: getCard(
-                      color: Colors.purple,
-                      cardColor: Colors.deepPurple,
-                    ),
+                        color: Colors.purple,
+                        cardColor: Colors.deepPurple,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EnterNamePage()));
+                        }),
                   ),
                   SizedBox(
                     width: 20.0,
@@ -66,21 +74,22 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget getCard({Color cardColor, Color color}) {
-    return Card(
-      margin: EdgeInsets.all(0),
-      elevation: 18,
-      child: Container(
-        height: 180.0,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [cardColor, color], begin: Alignment.topLeft),
-        ),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-
-            ],
+  Widget getCard({Color cardColor, Color color, Function onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        margin: EdgeInsets.all(0),
+        elevation: 18,
+        child: Container(
+          height: 180.0,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [cardColor, color], begin: Alignment.topLeft),
+          ),
+          child: Center(
+            child: Column(
+              children: <Widget>[],
+            ),
           ),
         ),
       ),
