@@ -1,8 +1,10 @@
 import 'package:attendance_portal/presentations/customs/star_container.dart';
 import 'package:attendance_portal/presentations/home.dart';
 import 'package:attendance_portal/presentations/login/sign_up_page.dart';
+import 'package:attendance_portal/store/user_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -130,16 +132,18 @@ class _SignInPageState extends State<SignInPage> {
                                     .signInWithEmailAndPassword(
                                         email: email, password: password)
                                     .then((AuthResult result) {
+                                  Provider.of<UserStore>(context)
+                                      .setLoggedInUser(result.user);
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => MainPage()));
                                 }).catchError((error) {
-                                  Scaffold.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(SnackBar(
-                                      content: Text(error),
-                                    ));
+                                  print('errror');
+                                  print(error);
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(error),
+                                  ));
                                 });
                               },
                               child: Container(

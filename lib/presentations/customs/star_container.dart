@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class StarContainer extends StatelessWidget{
+class StarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

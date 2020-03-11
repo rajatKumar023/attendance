@@ -1,7 +1,9 @@
 import 'package:attendance_portal/presentations/home.dart';
 import 'package:attendance_portal/presentations/login/sign_in_page.dart';
+import 'package:attendance_portal/store/user_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -41,6 +43,7 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SignInPage()));
       } else {
+        Provider.of<UserStore>(context).setLoggedInUser(user);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MainPage()));
       }

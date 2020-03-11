@@ -1,7 +1,9 @@
 import 'package:attendance_portal/presentations/name_page.dart';
 import 'package:attendance_portal/presentations/splash_page.dart';
+import 'package:attendance_portal/store/user_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -11,6 +13,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    print('printing user');
+    print(Provider.of<UserStore>(context).user);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.deepPurple,

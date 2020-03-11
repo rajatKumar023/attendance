@@ -1,18 +1,25 @@
 import 'package:attendance_portal/presentations/splash_page.dart';
+import 'package:attendance_portal/store/user_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        body: SplashPage(),
+    return MultiProvider(
+      providers: [
+        Provider<UserStore>.value(value: UserStore()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Scaffold(
+          body: SplashPage(),
+        ),
       ),
     );
   }
