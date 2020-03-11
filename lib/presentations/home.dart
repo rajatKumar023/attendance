@@ -1,4 +1,6 @@
 import 'package:attendance_portal/presentations/name_page.dart';
+import 'package:attendance_portal/presentations/splash_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -78,6 +80,11 @@ class _MainPageState extends State<MainPage> {
                   height: 20.0,
                 ),
                 getCard(
+                  onTap: () {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => SplashPage()));
+                  },
                   cardColor: Colors.lightGreen,
                   title: 'Settings',
                   prefixIcon: Center(

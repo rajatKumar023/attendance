@@ -1,6 +1,7 @@
 import 'package:attendance_portal/presentations/customs/star_container.dart';
 import 'package:attendance_portal/presentations/home.dart';
 import 'package:attendance_portal/presentations/login/sign_up_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
@@ -9,6 +10,16 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  FirebaseAuth mAuth;
+  String email;
+  String password;
+
+  @override
+  void initState() {
+    super.initState();
+    mAuth = FirebaseAuth.instance;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -81,12 +92,22 @@ class _SignInPageState extends State<SignInPage> {
                           height: 60.0,
                         ),
                         TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              email = value;
+                            });
+                          },
                           decoration: InputDecoration(hintText: 'Email'),
                         ),
                         SizedBox(
                           height: 20.0,
                         ),
                         TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              password = value;
+                            });
+                          },
                           decoration: InputDecoration(hintText: 'Password'),
                         ),
                         SizedBox(
@@ -105,10 +126,21 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MainPage()));
+                                mAuth
+                                    .signInWithEmailAndPassword(
+                                        email: email, password: password)
+                                    .then((AuthResult result) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MainPage()));
+                                }).catchError((error) {
+                                  Scaffold.of(context)
+                                    ..removeCurrentSnackBar()
+                                    ..showSnackBar(SnackBar(
+                                      content: Text(error),
+                                    ));
+                                });
                               },
                               child: Container(
                                 height: 60.0,

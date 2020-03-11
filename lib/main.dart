@@ -1,4 +1,4 @@
-import 'package:attendance_portal/presentations/login/sign_in_page.dart';
+import 'package:attendance_portal/presentations/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,12 +11,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PageView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 1,
-        itemBuilder: (BuildContext context, int index) {
-          return SignInPage();
-        },
+      home: Scaffold(
+        body: SplashPage(),
       ),
     );
   }
