@@ -12,14 +12,14 @@ mixin _$UserStore on _UserStore, Store {
   final _$userAtom = Atom(name: '_UserStore.user');
 
   @override
-  FirebaseUser get user {
+  User get user {
     _$userAtom.context.enforceReadPolicy(_$userAtom);
     _$userAtom.reportObserved();
     return super.user;
   }
 
   @override
-  set user(FirebaseUser value) {
+  set user(User value) {
     _$userAtom.context.conditionallyRunInAction(() {
       super.user = value;
       _$userAtom.reportChanged();
@@ -29,7 +29,7 @@ mixin _$UserStore on _UserStore, Store {
   final _$_UserStoreActionController = ActionController(name: '_UserStore');
 
   @override
-  dynamic setLoggedInUser(FirebaseUser user) {
+  dynamic setLoggedInUser(User user) {
     final _$actionInfo = _$_UserStoreActionController.startAction();
     try {
       return super.setLoggedInUser(user);

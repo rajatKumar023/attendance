@@ -1,9 +1,22 @@
+import 'dart:math';
+
+import 'package:attendance_portal/models/user.dart';
 import 'package:attendance_portal/presentations/customs/star_container.dart';
 import 'package:attendance_portal/presentations/home.dart';
+import 'package:attendance_portal/services/user_service.dart';
+import 'package:attendance_portal/store/user_store.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
 class EnterDetailsPage extends StatefulWidget {
+  EnterDetailsPage({
+    @required this.firebaseUser,
+  });
+
+  final FirebaseUser firebaseUser;
+
   @override
   _EnterDetailsPageState createState() => _EnterDetailsPageState();
 }
@@ -106,10 +119,25 @@ class _EnterDetailsPageState extends State<EnterDetailsPage> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MainPage()));
+                                  Random random = Random();
+                                  int id = random.nextInt(100000);
+                                  User user = User.fromJson({
+                                    'name': name,
+                                    'id': id,
+                                    'email': widget.firebaseUser.email,
+                                    'isAdmin': false,
+                                  });
+                                  UserService.getInstance()
+                                      .addUser(User.toJson(user),
+                                          widget.firebaseUser.email)
+                                      .then((value) {
+                                    Provider.of<UserStore>(context)
+                                        .setLoggedInUser(user);
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MainPage()));
+                                  });
                                 },
                                 child: Container(
                                   height: 60.0,

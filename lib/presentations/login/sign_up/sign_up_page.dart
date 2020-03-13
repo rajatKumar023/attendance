@@ -1,10 +1,8 @@
 import 'package:attendance_portal/presentations/customs/star_container.dart';
 import 'package:attendance_portal/presentations/login/sign_in_page.dart';
 import 'package:attendance_portal/presentations/login/sign_up/details_enter_page.dart';
-import 'package:attendance_portal/store/user_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -124,8 +122,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                       .createUserWithEmailAndPassword(
                                           email: email, password: password)
                                       .then((AuthResult authResult) {
-                                    Provider.of<UserStore>(context)
-                                        .setLoggedInUser(authResult.user);
                                     Navigator.pushReplacement(
                                       context,
                                       PageRouteBuilder(
@@ -133,7 +129,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                             Animation<double> animation,
                                             Animation<double>
                                                 secondaryAnimation) {
-                                          return EnterDetailsPage();
+                                          return EnterDetailsPage(
+                                            firebaseUser: authResult.user,
+                                          );
                                         },
                                         transitionsBuilder:
                                             (BuildContext context,

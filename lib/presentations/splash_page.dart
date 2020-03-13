@@ -1,6 +1,9 @@
+import 'package:attendance_portal/models/user.dart';
 import 'package:attendance_portal/presentations/home.dart';
 import 'package:attendance_portal/presentations/login/sign_in_page.dart';
+import 'package:attendance_portal/services/user_service.dart';
 import 'package:attendance_portal/store/user_store.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,15 +40,22 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  _navigateToMainPage(BuildContext context) {
+  _navigateToMainPage(BuildContext context) async {
     auth.currentUser().then((FirebaseUser user) {
       if (user == null) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SignInPage()));
       } else {
-        Provider.of<UserStore>(context).setLoggedInUser(user);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainPage()));
+        UserService.getInstance()
+            .getUser(user.email)
+            .then((DocumentSnapshot response) {
+          print('splash page data');
+          print(response.data.toString());
+          Provider.of<UserStore>(context)
+              .setLoggedInUser(User.fromJson(response.data));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        });
       }
     });
   }
