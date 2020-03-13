@@ -1,3 +1,4 @@
+import 'package:attendance_portal/presentations/name_page.dart';
 import 'package:attendance_portal/presentations/splash_page.dart';
 import 'package:attendance_portal/store/user_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,8 +13,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    print('name print');
-    print(Provider.of<UserStore>(context).user.name);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.deepPurple,
@@ -48,26 +47,32 @@ class _MainPageState extends State<MainPage> {
                     fit: BoxFit.fill,
                   ),
                   onTap: () {
-//                    Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                            builder: (context) => EnterNamePage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EnterNamePage()));
                   },
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
-                getCard(
-                  title: 'Calculate Average',
-                  cardColor: Colors.blue,
-                  prefixIcon: Image.asset(
-                    'assets/calculator.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
+                Provider.of<UserStore>(context).user.isAdmin
+                    ? Column(
+                        children: <Widget>[
+                          getCard(
+                            title: 'Calculate Average',
+                            cardColor: Colors.blue,
+                            prefixIcon: Image.asset(
+                              'assets/calculator.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                        ],
+                      )
+                    : SizedBox(),
                 getCard(
                   title: 'Know More',
                   cardColor: Colors.red,
