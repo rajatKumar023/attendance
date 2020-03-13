@@ -12,7 +12,6 @@ class _EnterNamePageState extends State<EnterNamePage> {
   @override
   void initState() {
     super.initState();
-
     textEditingController = TextEditingController();
   }
 
@@ -31,8 +30,9 @@ class _EnterNamePageState extends State<EnterNamePage> {
                   children: <Widget>[
                     ColorFiltered(
                       colorFilter: ColorFilter.mode(
-                          Colors.deepPurple.withOpacity(0.3),
-                          BlendMode.modulate),
+                        Colors.deepPurple.withOpacity(0.3),
+                        BlendMode.modulate,
+                      ),
                       child: Image.asset(
                         'assets/paper_bg.png',
                         fit: BoxFit.fitWidth,

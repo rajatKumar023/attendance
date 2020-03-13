@@ -1,10 +1,11 @@
 import 'package:attendance_portal/presentations/customs/star_container.dart';
 import 'package:attendance_portal/presentations/home.dart';
-import 'package:attendance_portal/presentations/login/sign_up_page.dart';
+import 'package:attendance_portal/presentations/login/sign_up/sign_up_page.dart';
 import 'package:attendance_portal/store/user_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -139,11 +140,11 @@ class _SignInPageState extends State<SignInPage> {
                                       MaterialPageRoute(
                                           builder: (context) => MainPage()));
                                 }).catchError((error) {
-                                  print('errror');
-                                  print(error);
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text(error),
-                                  ));
+                                  Toast.show(
+                                    error.message,
+                                    context,
+                                    duration: 5,
+                                  );
                                 });
                               },
                               child: Container(

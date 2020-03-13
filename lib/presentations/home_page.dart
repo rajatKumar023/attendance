@@ -51,8 +51,9 @@ class _HomePageState extends State<HomePage> {
                     },
                     onEditingComplete: () => _formKey.currentState.validate(),
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Name of Faculty'),
+                      border: OutlineInputBorder(),
+                      labelText: 'Name of Faculty',
+                    ),
                   ),
                   SizedBox(
                     height: 40.0,
