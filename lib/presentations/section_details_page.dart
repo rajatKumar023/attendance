@@ -84,6 +84,9 @@ class _SectionDetailsPageState extends State<SectionDetailsPage> {
                                 });
                               },
                             ),
+                            SizedBox(
+                              height: 30.0,
+                            ),
                             DropdownButtonFormField<String>(
                               items: section == Section.CS
                                   ? csList
