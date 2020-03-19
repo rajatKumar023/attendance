@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:attendance_portal/models/user.dart';
 import 'package:attendance_portal/presentations/customs/star_container.dart';
 import 'package:attendance_portal/presentations/home.dart';
+import 'package:attendance_portal/services/preference_service.dart';
 import 'package:attendance_portal/services/user_service.dart';
 import 'package:attendance_portal/store/user_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -131,6 +132,8 @@ class _EnterDetailsPageState extends State<EnterDetailsPage> {
                                       .addUser(User.toJson(user),
                                           widget.firebaseUser.email)
                                       .then((value) {
+                                    PreferencesService.getInstance()
+                                        .setAuthUser(user);
                                     Provider.of<UserStore>(context)
                                         .setLoggedInUser(user);
                                     Navigator.pushReplacement(

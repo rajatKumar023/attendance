@@ -1,4 +1,5 @@
 import 'package:attendance_portal/presentations/splash_page.dart';
+import 'package:attendance_portal/store/attendance_store.dart';
 import 'package:attendance_portal/store/user_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<UserStore>.value(value: UserStore()),
+        Provider<AttendanceStore>.value(value: AttendanceStore()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

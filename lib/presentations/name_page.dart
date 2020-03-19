@@ -1,4 +1,9 @@
+import 'package:attendance_portal/presentations/customs/floating_button.dart';
+import 'package:attendance_portal/presentations/total_students_page.dart';
+import 'package:attendance_portal/store/attendance_store.dart';
+import 'package:attendance_portal/store/user_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EnterNamePage extends StatefulWidget {
   @override
@@ -6,14 +11,8 @@ class EnterNamePage extends StatefulWidget {
 }
 
 class _EnterNamePageState extends State<EnterNamePage> {
-  TextEditingController textEditingController;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    textEditingController = TextEditingController();
-  }
+  String name;
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +27,8 @@ class _EnterNamePageState extends State<EnterNamePage> {
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        Colors.deepPurple.withOpacity(0.3),
-                        BlendMode.modulate,
-                      ),
-                      child: Image.asset(
-                        'assets/paper_bg.png',
-                        fit: BoxFit.fitWidth,
-                        width: MediaQuery.of(context).size.width,
-                      ),
+                    SizedBox(
+                      height: 250.0,
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 15.0),
@@ -50,7 +41,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
                               'Hi there,',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 25,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -58,7 +49,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
                               'Please enter your name to continue',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 28,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -66,11 +57,12 @@ class _EnterNamePageState extends State<EnterNamePage> {
                               height: 40.0,
                             ),
                             Form(
-                              onChanged: () => _formKey.currentState.validate(),
                               key: _formKey,
-                              autovalidate: false,
                               child: TextFormField(
-                                controller: textEditingController,
+                                initialValue: Provider.of<UserStore>(context)
+                                    .user
+                                    .name
+                                    .toString(),
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Name cannot be Empty';
@@ -79,6 +71,11 @@ class _EnterNamePageState extends State<EnterNamePage> {
                                     return 'Name should be greater than 2 characters';
                                   }
                                   return null;
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    name = value;
+                                  });
                                 },
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -97,8 +94,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.yellow),
+                                    borderSide: BorderSide(color: Colors.yellow),
                                   ),
                                   errorStyle: TextStyle(color: Colors.yellow),
                                 ),
@@ -116,50 +112,18 @@ class _EnterNamePageState extends State<EnterNamePage> {
                   ],
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    if (_formKey.currentState.validate()) {}
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(225, 39, 75, 1),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            'Continue',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 40.0,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              )
+              FloatingButton(
+                onTap: () {
+                  if (_formKey.currentState.validate()) {
+                    Provider.of<AttendanceStore>(context)
+                        .setNameForAttendance(name);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TotalStudentsPage()));
+                  }
+                },
+              ),
             ],
           ),
         ),

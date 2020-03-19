@@ -2,6 +2,7 @@ import 'package:attendance_portal/models/user.dart';
 import 'package:attendance_portal/presentations/customs/star_container.dart';
 import 'package:attendance_portal/presentations/home.dart';
 import 'package:attendance_portal/presentations/login/sign_up/sign_up_page.dart';
+import 'package:attendance_portal/services/preference_service.dart';
 import 'package:attendance_portal/services/user_service.dart';
 import 'package:attendance_portal/store/user_store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -139,6 +140,9 @@ class _SignInPageState extends State<SignInPage> {
                                   UserService.getInstance()
                                       .getUser(result.user.email)
                                       .then((DocumentSnapshot response) {
+                                    PreferencesService.getInstance()
+                                        .setAuthUser(
+                                            User.fromJson(response.data));
                                     Provider.of<UserStore>(context)
                                         .setLoggedInUser(
                                             User.fromJson(response.data));

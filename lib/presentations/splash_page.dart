@@ -1,9 +1,8 @@
 import 'package:attendance_portal/models/user.dart';
 import 'package:attendance_portal/presentations/home.dart';
 import 'package:attendance_portal/presentations/login/sign_in_page.dart';
-import 'package:attendance_portal/services/user_service.dart';
+import 'package:attendance_portal/services/preference_service.dart';
 import 'package:attendance_portal/store/user_store.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,13 +45,8 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SignInPage()));
       } else {
-        UserService.getInstance()
-            .getUser(user.email)
-            .then((DocumentSnapshot response) {
-          print('splash page data');
-          print(response.data.toString());
-          Provider.of<UserStore>(context)
-              .setLoggedInUser(User.fromJson(response.data));
+        PreferencesService.getInstance().getAuthUser().then((User newUser) {
+          Provider.of<UserStore>(context).setLoggedInUser(newUser);
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MainPage()));
         });
