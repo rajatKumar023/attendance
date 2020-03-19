@@ -1,16 +1,16 @@
 import 'package:attendance_portal/presentations/customs/floating_button.dart';
-import 'package:attendance_portal/presentations/present_students_page.dart';
+import 'package:attendance_portal/presentations/section_details_page.dart';
 import 'package:attendance_portal/store/attendance_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TotalStudentsPage extends StatefulWidget {
+class PresentStudentsPage extends StatefulWidget {
   @override
-  _TotalStudentsPageState createState() => _TotalStudentsPageState();
+  _PresentStudentsPageState createState() => _PresentStudentsPageState();
 }
 
-class _TotalStudentsPageState extends State<TotalStudentsPage> {
-  String totalStudents;
+class _PresentStudentsPageState extends State<PresentStudentsPage> {
+  String presentStudents;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,7 @@ class _TotalStudentsPageState extends State<TotalStudentsPage> {
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.deepOrangeAccent, Colors.red],
-              begin: Alignment.topLeft,
-            ),
-          ),
+          color: Colors.green,
           child: Stack(
             children: <Widget>[
               SingleChildScrollView(
@@ -41,7 +36,7 @@ class _TotalStudentsPageState extends State<TotalStudentsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'Enter the total number of students',
+                              'Enter the present number of students',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 28,
@@ -61,7 +56,7 @@ class _TotalStudentsPageState extends State<TotalStudentsPage> {
                               },
                               onChanged: (value) {
                                 setState(() {
-                                  totalStudents = value;
+                                  presentStudents = value;
                                 });
                               },
                               decoration: InputDecoration(
@@ -99,15 +94,15 @@ class _TotalStudentsPageState extends State<TotalStudentsPage> {
                 ),
               ),
               FloatingButton(
-                buttonColor: Colors.amber,
+                buttonColor: Colors.lightGreen,
                 onTap: () {
-                  if (totalStudents != null && totalStudents.isNotEmpty) {
+                  if (presentStudents != null && presentStudents.isNotEmpty) {
+                    Provider.of<AttendanceStore>(context)
+                        .setPresentStudentsForAttendance(presentStudents);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PresentStudentsPage()));
-                    Provider.of<AttendanceStore>(context)
-                        .setTotalStudentsForAttendance(totalStudents);
+                            builder: (context) => SectionDetailsPage()));
                   }
                 },
               ),

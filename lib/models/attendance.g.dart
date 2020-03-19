@@ -12,8 +12,8 @@ Attendance _$AttendanceFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as int
     ..section = _$enumDecodeNullable(_$SectionEnumMap, json['section'])
     ..subSection = _$enumDecodeNullable(_$SubSectionEnumMap, json['subSection'])
-    ..totalStudents = json['total_students'] as int
-    ..presentStudents = json['present_students'] as int;
+    ..totalStudents = json['total_students'] as String
+    ..presentStudents = json['present_students'] as String;
 }
 
 Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
@@ -149,14 +149,14 @@ mixin _$Attendance on _Attendance, Store {
   final _$totalStudentsAtom = Atom(name: '_Attendance.totalStudents');
 
   @override
-  int get totalStudents {
+  String get totalStudents {
     _$totalStudentsAtom.context.enforceReadPolicy(_$totalStudentsAtom);
     _$totalStudentsAtom.reportObserved();
     return super.totalStudents;
   }
 
   @override
-  set totalStudents(int value) {
+  set totalStudents(String value) {
     _$totalStudentsAtom.context.conditionallyRunInAction(() {
       super.totalStudents = value;
       _$totalStudentsAtom.reportChanged();
@@ -166,14 +166,14 @@ mixin _$Attendance on _Attendance, Store {
   final _$presentStudentsAtom = Atom(name: '_Attendance.presentStudents');
 
   @override
-  int get presentStudents {
+  String get presentStudents {
     _$presentStudentsAtom.context.enforceReadPolicy(_$presentStudentsAtom);
     _$presentStudentsAtom.reportObserved();
     return super.presentStudents;
   }
 
   @override
-  set presentStudents(int value) {
+  set presentStudents(String value) {
     _$presentStudentsAtom.context.conditionallyRunInAction(() {
       super.presentStudents = value;
       _$presentStudentsAtom.reportChanged();

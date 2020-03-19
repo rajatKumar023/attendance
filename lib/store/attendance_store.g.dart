@@ -146,4 +146,14 @@ mixin _$AttendanceStore on _AttendanceStore, Store {
       _$_AttendanceStoreActionController.endAction(_$actionInfo);
     }
   }
+
+  @override
+  dynamic submitAttendance(String email) {
+    final _$actionInfo = _$_AttendanceStoreActionController.startAction();
+    try {
+      return super.submitAttendance(email);
+    } finally {
+      _$_AttendanceStoreActionController.endAction(_$actionInfo);
+    }
+  }
 }

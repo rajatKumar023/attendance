@@ -15,6 +15,14 @@ class _EnterNamePageState extends State<EnterNamePage> {
   String name;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      name = Provider.of<UserStore>(context).user.name;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -59,10 +67,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
                             Form(
                               key: _formKey,
                               child: TextFormField(
-                                initialValue: Provider.of<UserStore>(context)
-                                    .user
-                                    .name
-                                    .toString(),
+                                initialValue: name,
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Name cannot be Empty';
@@ -94,7 +99,8 @@ class _EnterNamePageState extends State<EnterNamePage> {
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.yellow),
+                                    borderSide:
+                                        BorderSide(color: Colors.yellow),
                                   ),
                                   errorStyle: TextStyle(color: Colors.yellow),
                                 ),

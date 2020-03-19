@@ -27,11 +27,11 @@ abstract class _Attendance with Store {
 
   @observable
   @JsonKey(name: 'total_students')
-  int totalStudents;
+  String totalStudents;
 
   @observable
   @JsonKey(name: 'present_students')
-  int presentStudents;
+  String presentStudents;
 }
 
 enum Section { CS, IT }

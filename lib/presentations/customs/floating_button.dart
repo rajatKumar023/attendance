@@ -4,10 +4,12 @@ class FloatingButton extends StatelessWidget {
   FloatingButton({
     this.onTap,
     this.buttonColor = const Color.fromRGBO(225, 39, 75, 1),
+    this.title = 'Continue',
   });
 
   Function onTap;
   Color buttonColor;
+  String title;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class FloatingButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  'Continue',
+                  title,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
